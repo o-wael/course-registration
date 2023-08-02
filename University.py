@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-from Student import Student
+
 from Course import Course
+from CourseRegistration import Course_Registration
 from Semester import Semester
-from CourseRegistration import CourseRegistration
+from Student import Student
 
 
 @dataclass
@@ -14,7 +15,7 @@ class University:
     __instance = None
 
     @staticmethod
-    def getUniversity():
+    def get_university():
         if University.__instance is None:
             University.__instance = University()
         return University.__instance
@@ -27,10 +28,10 @@ class University:
         University.semesters = None
 
     def __init__(self):
-        if University.__instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
+        if University.__instance is None:
             University.__instance = self
+        else:
+            self = University.__instance
 
     def __str__(self):
         return f"{self.name}"
@@ -94,7 +95,7 @@ class University:
 
     @staticmethod
     def check_semester(student: Student, course: Course) -> bool:
-        semesters = University.getUniversity().semesters
+        semesters = University.get_university().semesters
         for semester in semesters:
             if semester.number == student.semester:
                 if course in semester.courses:
@@ -103,9 +104,9 @@ class University:
 
     def registration(self, student: Student, course: Course):
         if University.check_semester(student, course):
-            CourseRegistration.register_student_in_a_course(student, course)
+            Course_Registration.register_student_in_a_course(student, course)
         else:
             raise Exception(f"Student {student.name} cannot be registered")
 
     def unregistration(self, student: Student, course: Course):
-        CourseRegistration.unregister_student_in_a_course(student, course)
+        Course_Registration.unregister_student_in_a_course(student, course)

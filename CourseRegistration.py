@@ -2,7 +2,7 @@ from Course import Course
 from Student import Student
 
 
-class CourseRegistration:
+class Course_Registration:
     @staticmethod
     def register_student_in_a_course(student: Student, course: Course):
         student.register_course(course)
