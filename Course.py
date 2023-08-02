@@ -1,4 +1,8 @@
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Student import Student
 
 
 @dataclass
@@ -23,12 +27,12 @@ class Course:
     def __hash__(self):
         return hash(self.code)
 
-    def add_student(self, student):
+    def add_student(self, student: "Student"):
         if len(self.students) == self.max_students:
             raise Exception("Course is full")
         self.students.add(student)
 
-    def remove_student(self, student):
+    def remove_student(self, student: "Student"):
         if len(self.students) == 0:
             raise Exception("Course is empty")
         if student in self.students:

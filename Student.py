@@ -1,4 +1,8 @@
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Course import Course
 
 
 @dataclass
@@ -23,10 +27,10 @@ class Student:
     def __hash__(self):
         return hash(self.id)
 
-    def register_course(self, course):
+    def register_course(self, course: "Course"):
         self.courses.add(course)
 
-    def unregister_course(self, course):
+    def unregister_course(self, course: "Course"):
         if course in self.courses:
             self.courses.remove(course)
         else:
